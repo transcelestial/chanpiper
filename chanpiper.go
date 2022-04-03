@@ -50,7 +50,6 @@ type Piper interface {
 	Pipe() <-chan Data
 }
 
-// TODO: Remove this and use generics
 type Data struct {
 	V interface{}
 }
