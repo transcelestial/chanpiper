@@ -16,22 +16,22 @@ import (
 
 func main() {
     source := make(chan chanpiper.Data)
-	piper := chanpiper.New(source)
+    piper := chanpiper.New(source)
 
     p1 := piper.Pipe()
     p2 := piper.Pipe()
 
     go func() {
-		for data := range p1 {
-			fmt.Println(data.V)
-		}
-	}()
+        for data := range p1 {
+            fmt.Println(data.V)
+        }
+    }()
 
     go func() {
-		for data := range p2 {
-			fmt.Println(data.V)
-		}
-	}()
+        for data := range p2 {
+            fmt.Println(data.V)
+        }
+    }()
 
     source <- chanpiper.Data{"ping"}
     close(source)
@@ -51,22 +51,22 @@ import (
 
 func main() {
     source := make(chan string)
-	piper := chanpiper.New(source)
+    piper := chanpiper.New(source)
 
     p1 := piper.Pipe()
     p2 := piper.Pipe()
 
     go func() {
-		for data := range p1 {
-			fmt.Println(data.V)
-		}
-	}()
+        for data := range p1 {
+            fmt.Println(data.V)
+        }
+    }()
 
     go func() {
-		for data := range p2 {
-			fmt.Println(data.V)
-		}
-	}()
+        for data := range p2 {
+            fmt.Println(data.V)
+        }
+    }()
 
     source <- "ping"
     close(source)
