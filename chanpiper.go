@@ -47,6 +47,8 @@ type Piper interface {
 	//
 	// Also note that there's no replay mechanism,
 	// so any msgs that were sent before calling Pipe(), are not received.
+	//
+	// Returns nil if the source is closed.
 	Pipe() <-chan Data
 }
 
@@ -63,6 +65,9 @@ func (p *piper) Pipe() <-chan Data {
 	p.mux.Lock()
 	defer p.mux.Unlock()
 	c := make(chan Data, 1)
+	if p.chans == nil {
+		return nil
+	}
 	p.chans = append(p.chans, c)
 	return c
 }
@@ -79,8 +84,12 @@ func (p *piper) setupRcvLoop(source <-chan Data) {
 		}
 		p.mux.RUnlock()
 	}
+	p.mux.Lock()
+	defer p.mux.Unlock()
 	// source got closed, so close the receivers
 	for _, c := range p.chans {
 		close(c)
 	}
+	// empty chans
+	p.chans = nil
 }

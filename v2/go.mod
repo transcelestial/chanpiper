@@ -2,7 +2,10 @@ module github.com/transcelestial/chanpiper/v2
 
 go 1.18
 
-require github.com/stretchr/testify v1.7.1
+require (
+	github.com/fortytw2/leaktest v1.3.0
+	github.com/stretchr/testify v1.7.1
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.0 // indirect

@@ -8,13 +8,17 @@ import (
 	"testing"
 	"time"
 
+	"github.com/fortytw2/leaktest"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/transcelestial/chanpiper/v2"
 )
 
 func TestChanpiper(t *testing.T) {
+	defer leaktest.Check(t)
+
 	source := make(chan string)
-	mc := chanpiper.New(source)
+	piper := chanpiper.New(source)
 
 	var wg sync.WaitGroup
 	pipeCount := 10
@@ -27,7 +31,7 @@ func TestChanpiper(t *testing.T) {
 
 	for i := 0; i < pipeCount; i++ {
 		wg.Add(1)
-		c := mc.Pipe()
+		c := piper.Pipe()
 		go func() {
 			defer wg.Done()
 			for d := range c {
@@ -56,4 +60,5 @@ func TestChanpiper(t *testing.T) {
 	wg.Wait()
 
 	require.Len(t, data, dataBufSize)
+	assert.Nil(t, piper.Pipe())
 }
