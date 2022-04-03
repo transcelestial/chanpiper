@@ -4,7 +4,7 @@
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/transcelestial/chanpiper/Test?label=test&style=flat-square)](https://github.com/transcelestial/chanpiper/actions?query=workflow%3ATest)
 
 ## Usage
-To use `chanpiper` w/o generics:
+To use `chanpiper` w/o [generics](https://go.dev/doc/tutorial/generics):
 ```go
 package main
 
@@ -39,7 +39,7 @@ func main() {
 ```
 See the [example](./example_chanpiper_test.go) for a working example.
 
-To use `chanpiper/v2` w/ generics:
+To use `chanpiper/v2` w/ [generics](https://go.dev/doc/tutorial/generics):
 ```go
 package main
 
